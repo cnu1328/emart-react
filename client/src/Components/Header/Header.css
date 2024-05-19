@@ -1,0 +1,270 @@
+/* header */
+
+
+
+.header {
+  display: block;
+  max-width: 100%;
+  padding: 0px 10px;
+  margin: 0px auto;
+  box-shadow: 0px 1px 9px 0px rgba(0,0,0,0.75);
+}
+
+.header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  /* background-color: #fff; */
+}
+.grey-color {
+  color: #868e96;
+}
+
+.header li  {
+  display: flex;
+  height: 40px;
+  margin-right: 20px;
+  justify-content: center;
+  align-items: center;
+  
+  /* color: black; */
+  text-decoration: none;
+}
+
+.header li a {
+  /* padding: 10px; */
+  text-decoration: none;
+}
+
+
+
+/* .header li a:hover,
+.header .menu-btn:hover {
+  background-color: #A6E1FA; 
+  border-radius: 50px;
+  
+} */
+
+.header .logo {
+  display: block;
+  float: left;
+  font-size: 1.5em;
+  text-decoration: none;
+  margin-top: 15px;
+  color: #55198b;
+  line-height: normal;
+}
+.header .logo-name {
+  font-family: "Agustina Regular";
+  font-weight: bold;
+  padding: 0 10px;
+  color: #55198b;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu > li {
+  position: relative;
+  color: #000;
+  text-decoration: none;
+}
+
+.menu > li:hover {
+  color: #000;
+}
+
+.menu > li a {
+    color: #55198b;
+}
+
+.menu > li.nav-link:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+
+.menu > li:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+/* menu */
+
+.menu {
+  font-family: "Google Sans Regular";
+}
+
+.header .menu {
+  clear: both;
+  max-height: 0;
+  transition: max-height 0.2s ease-out;
+}
+
+/* menu icon */
+
+.header .menu-icon {
+  cursor: pointer;
+  float: right;
+  /* display: inline-block; */
+  padding: 28px 20px;
+  position: relative;
+  user-select: none;
+}
+
+.header .menu-icon .navicon {
+  background: #333;
+  display: block;
+  height: 2px;
+  position: relative;
+  transition: background 0.2s ease-out;
+  width: 18px;
+}
+
+.header .menu-icon .navicon:before,
+.header .menu-icon .navicon:after {
+  background: #333;
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all 0.2s ease-out;
+  width: 100%;
+}
+
+.header .menu-icon .navicon:before {
+  top: 5px;
+}
+
+.header .menu-icon .navicon:after {
+  top: -5px;
+}
+
+/* menu btn */
+
+.header .menu-btn {
+  display: none;
+}
+
+.header .menu-btn:checked ~ .menu {
+  max-height: 400px;
+  padding-bottom: 20px;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon {
+  background: transparent;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:before {
+  transform: rotate(-45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:after {
+  transform: rotate(45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+  top: 0;
+}
+
+
+/* Search */
+
+.search-input input,
+.search-input button {
+    border: none;
+}
+
+.search-input input {
+    font-size: 15px;
+    color: #7104cf;
+}
+
+
+.search-input button {
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    color: #7037a1;
+}
+
+.search-input input:focus {
+  outline: none; 
+}
+
+.search-input {
+    padding-left: 5px;
+    border-radius: 15px;
+    border: 1px solid #55198b !important;
+}
+
+
+
+/* Responsive */
+
+/* 48em = 768px */
+
+@media screen and (max-width: 860px) {
+  .header li {
+    margin-top: 20px;
+  }
+
+}
+
+@media screen and (min-width: 860px) {
+  .header li {
+    float: left;
+  }
+
+  .header .logo {
+    margin-top: 5px;
+  }
+
+  .header .logo-name {
+    height: 40px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10px;
+  }
+  .header .menu {
+    max-height: none;
+  }
+  .header .menu-icon {
+    display: none;
+  }
+
+  .search-input {
+    border: 1px solid #868e96;
+  }
+  
+}
+
+@media (max-width: 1008px) and (min-width: 860px) {
+  .header {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .header .logo-name {
+    font-size: 13px;
+  }
+}
+
+
