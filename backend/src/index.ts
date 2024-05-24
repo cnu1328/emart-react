@@ -38,7 +38,7 @@ app.use("/test", (req, res, next) => {
 
 app.use("/oauth", authRouter);
 app.use("/user", userRouter);
-app.use("/product", productRouter);
+app.use("/sell", productRouter);
 app.use("/search", searchRouter);
 
 
