@@ -1,12 +1,9 @@
-import { useAuth } from "./context/Auth";
-import { Routes, Route, Navigate } from "react-router-dom";
+
 import {
   useState,
   createContext,
   useContext,
-  useMemo,
-  useEffect,
-  useRef,
+ 
 } from "react";
 import { Toaster, toast, Toast } from "react-hot-toast";
 import CloseIcon from "@mui/icons-material/Close";
@@ -16,7 +13,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import './App.css'
 import Main from "./pages/Main";
 import Header from './Components/Header/Header';
-import { url } from "./utils/baseUrl";
 
 
 export const DEFAULT_IMG =
@@ -30,12 +26,12 @@ type AppContextType = {
 
 const Context = createContext<AppContextType | undefined>(undefined);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAppContext() {
   return useContext(Context) as AppContextType;
 }
 
 function App() {
-  const { isAuthenticated, user } = useAuth();
   
   const [showNav, setShowNav] = useState(true);
 
