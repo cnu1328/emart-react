@@ -24,7 +24,8 @@
     "express-validator": "^7.0.1",
     "google-auth-library": "^9.9.0",
     "jsonwebtoken": "^9.0.1",
-    "mongoose": "^7.4.2"
+    "mongoose": "^7.4.2",
+    "stripe": "^15.8.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

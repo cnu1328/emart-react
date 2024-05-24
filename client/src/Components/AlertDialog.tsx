@@ -20,18 +20,18 @@ export default function AlertDialog({
             aria-describedby="alert-dialog-description"
         >
             <DialogTitle id="alert-dialog-title">
-                {"Confirm Delete"}
+                {"Confirm Product Remove"}
             </DialogTitle>
 
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Are you sure you want to delete this product? This action cannot be undone.
+                    Are you sure you want to revmove this product from cart list?
                 </DialogContentText>
             </DialogContent>
 
             <DialogActions>
-                <Button onClick={handleClose} color="secondary">Cancel</Button>
-                <Button onClick={handleConfirm} color="error">Delete</Button>
+                <Button onClick={handleClose} color="secondary">No</Button>
+                <Button onClick={handleConfirm} color="error">Yes</Button>
             </DialogActions>
 
         </Dialog>

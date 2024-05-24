@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
 
     const [product, setProduct] = useState<Array<any>>([]);
+    const [wishlist, setWishlist] = useState<Array<any>>([]);
+
     document.title = "RGUKT-EMART";
 
     const navigate = useNavigate();
@@ -22,11 +24,18 @@ export default function Home() {
         enabled: false,
     });
 
+    const { refetch : getWishlist, isSuccess : isGetWishlist, data : WishlistData } = useQuery({
+        queryFn: () => httpRequest.get(`${url}/user/wishlist/get`),
+        queryKey: ["get", "wishlist"],
+        enabled: false,
+    });
+
     
 
     useEffect(() => {
         console.log("It Runs only once");
         getProducts();
+        getWishlist();
     }, []);
 
     useEffect(() => {
@@ -34,8 +43,19 @@ export default function Home() {
             console.log("Data is Fetched");
             console.log(data.data);
             setProduct(data.data);
+            
         }
     }, [isSuccess, data]);
+
+    useEffect(() => {
+        if(isGetWishlist) {
+            setWishlist(WishlistData.data);
+        }
+    }, [isGetWishlist, WishlistData]);
+
+    
+
+
 
 
     return(
@@ -44,10 +64,15 @@ export default function Home() {
                 style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: "15px",
+                    gap: "1px",
                 }}
             >
                 <Box
+
+                    sx={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fill, minmax(275px, 1fr))",
+                    }}
                     
                 >
                     {product.map((item) => {
@@ -59,6 +84,7 @@ export default function Home() {
                                 price={item.product.price}
                                 productId={item.product._id}
                                 key={item.product._id}
+                                isWishlisted={wishlist?.includes(item.product._id)}
                             />
                         );
                     })}

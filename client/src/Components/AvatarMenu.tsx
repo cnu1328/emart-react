@@ -11,6 +11,7 @@ import {
     profileIcon,
     writeSmallIcon,
 } from "../assets/icons";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 export default function AvatarMenu() {
   const { isAuthenticated, user, logout } = useAuth();
@@ -95,7 +96,7 @@ function AuthMenu({
         }}
       >
         <Link
-          to={`/user/${userId}`}
+          to={`/user/${userId}/wishlist`}
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <MenuItem
@@ -105,23 +106,23 @@ function AuthMenu({
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              padding: "8px 18px",
+              padding: "0px 18px",
             }}
           >
             <span
-              style={{ color: "#7037a1", margin: "0 10px", marginBottom: "-5px" }}
+              style={{ color: "#7037a1", margin: "auto 10px" }}
             >
               {profileIcon}
             </span>
             <p
-              style={{ marginLeft: "5px", color: "#7037a1", fontSize: "14px", fontWeight: "bold" }}
+              style={{ marginLeft: "5px", paddingTop: "20px", color: "#7037a1", fontSize: "14px", fontWeight: "bold" }}
             >
               Profile
             </p>
           </MenuItem>
         </Link>
         <Link
-          to={`/add`}
+          to={`/sell`}
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <MenuItem
@@ -131,7 +132,7 @@ function AuthMenu({
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              padding: "8px 18px",
+              padding: "0px 18px",
             }}
           >
             <span
@@ -140,14 +141,14 @@ function AuthMenu({
               {writeSmallIcon}
             </span>
             <p
-              style={{ marginLeft: "5px", color: "#7037a1", fontSize: "14px", fontWeight: "bold" }}
+              style={{ marginLeft: "5px", paddingTop: "20px", color: "#7037a1", fontSize: "14px", fontWeight: "bold" }}
             >
               Add Product
             </p>
           </MenuItem>
         </Link>
         <Link
-          to={`/user/${userId}/lists`}
+          to={`/cartItems`}
           style={{
             textDecoration: "none",
             color: "inherit",
@@ -160,7 +161,7 @@ function AuthMenu({
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              padding: "8px 18px",
+              padding: "0px 18px",
             }}
           >
             <span
@@ -169,12 +170,43 @@ function AuthMenu({
               {librabryIcon}
             </span>
             <p
-              style={{ marginLeft: "5px", color: "#7037a1", fontSize: "14px", fontWeight: "bold" }}
+              style={{ marginLeft: "5px", paddingTop: "20px", color: "#7037a1", fontSize: "14px", fontWeight: "bold" }}
             >
               Your Cart
             </p>
           </MenuItem>
         </Link>
+
+        <Link
+          to={`user/${userId}/wishlist`}
+          style={{
+            textDecoration: "none",
+            color: "inherit",
+          }}
+        >
+          <MenuItem
+            sx={[{ "&:hover": { backgroundColor: "transparent" } }]}
+            onClick={handleClose}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              padding: "0px 18px",
+            }}
+          >
+            <span
+              style={{ color: "#7037a1", margin: "0 10px", marginBottom: "-5px" }}
+            >
+              <FavoriteBorderIcon />
+            </span>
+            <p
+              style={{ marginLeft: "5px", paddingTop: "20px", color: "#7037a1", fontSize: "14px", fontWeight: "bold" }}
+            >
+              Wishlist
+            </p>
+          </MenuItem>
+        </Link>
+
         <Divider sx={{ margin: "10px 0" }} />
         <MenuItem
           sx={[{ "&:hover": { backgroundColor: "transparent" } }]}

@@ -78,7 +78,7 @@ function Header() {
 
 
           <li className="nav-link">
-            <a href="/view"><i className="fa-regular fa-eye"></i> View Your Product</a>
+            <a href="/view"><i className="fa-regular fa-eye"></i> View Your Products</a>
           </li>     
 
           {isAuthenticated ? (

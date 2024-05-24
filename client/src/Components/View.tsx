@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import Footer from "./Footer/Footer";
 import TopButton from "./TopButton/TopButton";
 import ProductCard from "./Product";
@@ -7,7 +7,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { httpRequest } from "../Interceptor/axiosInterceptor";
 import { url } from "../utils/baseUrl";
 import { useAuth } from "../context/Auth";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppContext } from "../App";
 import AlertDialog from "./AlertDialog";
 
@@ -19,9 +19,13 @@ export default function View() {
     const [product, setProducts] = useState<Array<any>>([]);
     const [loading, setLoading] = useState(true);
     const [errors, setError] = useState<string | null>(null);
+    const [wishlist, setWishlist] = useState<Array<any>>([]);
+
+    
     
     const { isAuthenticated } = useAuth();
     const { handleToast } = useAppContext();
+    const navigate = useNavigate();
 
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
@@ -46,9 +50,23 @@ export default function View() {
         }
     }, [isSuccess, data, isError, error]);
 
+
+    const { refetch : getWishlist, isSuccess : isGetWishlist, data : WishlistData } = useQuery({
+        queryFn: () => httpRequest.get(`${url}/user/wishlist/get`),
+        queryKey: ["get", "wishlist"],
+        enabled: false,
+    });
+
+    useEffect(() => {
+        if(isGetWishlist) {
+            setWishlist(WishlistData.data);
+        }
+    }, [isGetWishlist, WishlistData]);
+
     useEffect(() => {
         if(isAuthenticated) {
             getYourProducts();
+            getWishlist();
         }
     }, []);
 
@@ -91,8 +109,16 @@ export default function View() {
     const onEditClick = (productId: string, event: React.MouseEvent) => {
         event.stopPropagation();
         console.log("Edit Button is Clicked", productId);
-        
+
+        const prod = product.find(p => p._id === productId); 
+        navigate('/sell', { state: { existingProduct: prod, mode: "edit" } });
+
     };
+
+
+
+    const isSmallScreen = useMediaQuery('(max-width:430px)');
+    const isBigScreen = useMediaQuery('(min-width: 770px')
 
     if (loading) return <Typography mt={2} mb={2}>Loading....</Typography>
 
@@ -109,9 +135,11 @@ export default function View() {
             >
                 <h1
                     style={{
-                    fontSize: "40px",
-                    marginBottom: "-12px",
-                    wordSpacing: "5px",
+                        marginTop: "15px",
+                        marginLeft: "20px",
+                        fontSize: isBigScreen ? "30px" : isSmallScreen ? "20px" : "30px",
+                        marginBottom: "-12px",
+                        wordSpacing: "5px",
                     }}
                 >
                     <span style={{ color: "#7f7f7f" }}>{"Your Products : "}</span>
@@ -121,6 +149,11 @@ export default function View() {
                     </span>
                 </h1>
                 <Box
+
+                    sx={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+                    }}
                     
                 >
                     {product.map((item) => {
@@ -135,6 +168,7 @@ export default function View() {
                                 showButton={location.pathname === '/view'}
                                 onDeleteClick={onDeleteClick}
                                 onEditClick={onEditClick}
+                                isWishlisted={wishlist?.includes(item._id) || false}
                             />
                         );
                     })}

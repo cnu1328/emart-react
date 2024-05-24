@@ -22,6 +22,13 @@ export const addProduct = asyncHandler(async (req, res, next) => {
     await user.save();
     res.send(pro);
 });
+export const updateProduct = asyncHandler(async (req, res, next) => {
+    const { name, description, price, category, image, productId, } = req.body;
+    const prod = await Product.findByIdAndUpdate(productId, { name, description, category, price }, { new: true });
+    if (!prod)
+        new ServerError(400, "Product Not Found");
+    res.status(200).json({ success: true, product: prod });
+});
 // Home page Products
 export const getHomeProducts = asyncHandler(async (req, res, next) => {
     const products = await getProductsWithUser(Product.find({}));

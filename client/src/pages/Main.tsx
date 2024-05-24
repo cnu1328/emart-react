@@ -9,6 +9,11 @@ import Authentication from "../router/Authentication";
 import SearchResults from "./SearchResult";
 import ProductDetail from "../Components/productDetail";
 import View from "../Components/View";
+import UserDetail from "./userDetail";
+import CartList from "../Components/CartList";
+import Checkout from "../Components/Payment/Checkout";
+import Success from "../Components/Payment/Success";
+import Cancel from "../Components/Payment/Cancel";
 
 export default class Main extends Component {
     render() {
@@ -46,20 +51,30 @@ export default class Main extends Component {
                     />
 
                     <Route 
-                        path="/user/:userId"
+                        path="/payments"
                         element={
                             <Authentication fallback={<Navigate to="/auth/signup" />}>
-                                <AddProduct />
+                                <Checkout />
                             </Authentication>
                             
                         }
                     />
 
                     <Route 
-                        path="/user/:userId/cartItems"
+                        path="/user/:userId/:tab?"
                         element={
                             <Authentication fallback={<Navigate to="/auth/signup" />}>
-                                <AddProduct />
+                                <UserDetail />
+                            </Authentication>
+                            
+                        }
+                    />
+
+                    <Route 
+                        path="/cartItems"
+                        element={
+                            <Authentication fallback={<Navigate to="/auth/signup" />}>
+                                <CartList />
                             </Authentication>
                             
                         }
@@ -68,6 +83,16 @@ export default class Main extends Component {
                     <Route 
                         path="/search/:query"
                         element={<SearchResults />}
+                    />
+
+                    <Route 
+                        path="/success"
+                        element={<Success />}
+                    />
+
+                    <Route 
+                        path="/cancel"
+                        element={<Cancel />}
                     />
 
 

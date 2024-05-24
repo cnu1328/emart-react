@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { 
     FormControl, 
     Box, 
@@ -8,9 +8,7 @@ import {
     InputLabel,
     OutlinedInput,
     InputAdornment,
-    FormGroup,
     FormControlLabel,
-    Checkbox,
     Button,
     RadioGroup,
     FormLabel,
@@ -20,13 +18,12 @@ import {
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useTheme, styled } from "@mui/material/styles";
 import "./addProduct.css";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { httpRequest } from "../../Interceptor/axiosInterceptor";
 import { url } from "../../utils/baseUrl";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { storage } from "../../Firebase/firebase";
 import { nanoid } from "nanoid";
-
 import {
     ref,
     uploadBytes,
@@ -35,25 +32,33 @@ import { useAuth } from "../../context/Auth";
 import { useAppContext } from "../../App";
 
 
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
-  height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  whiteSpace: 'nowrap',
-  width: 1,
-});
+// const VisuallyHiddenInput = styled('input')({
+//   clip: 'rect(0 0 0 0)',
+//   clipPath: 'inset(50%)',
+//   height: 1,
+//   overflow: 'hidden',
+//   position: 'absolute',
+//   bottom: 0,
+//   left: 0,
+//   whiteSpace: 'nowrap',
+//   width: 1,
+// });
+
+
 
 export default function AddProduct() {
-    const [product, setProduct] = useState("");
-    const [description, setDescription] = useState("");
-    const [price, setPrice] = useState("");
-    const [category, setCategory] = useState("");
     
-    let imageUrl = "";
+    const location = useLocation();
+
+    const { existingProduct, mode } = location.state || {};
+
+    const [product, setProduct] = useState(existingProduct?.name || "");
+    const [description, setDescription] = useState(existingProduct?.description || "");
+    const [price, setPrice] = useState(existingProduct?.price.toString() || "");
+    const [category, setCategory] = useState(existingProduct?.category || "");
+    
+    
+    const imageUrl = useRef("");
     const [imageUrls, setImageUrls] = useState<File[]>([]);
 
     const navigate = useNavigate();
@@ -61,24 +66,39 @@ export default function AddProduct() {
     const { handleToast } = useAppContext();
 
 
+    useEffect(() => {
+        if (mode === 'edit' && existingProduct) {
+            setProduct(existingProduct.name);
+            setDescription(existingProduct.description);
+            setPrice(existingProduct.price);
+            setCategory(existingProduct.category);
+            imageUrl.current = existingProduct.images;
+        }
+    }, [existingProduct, mode]);
+
+
     const uploadFile = async () => {
 
         if(imageUrls.length === 0) return;
 
-        imageUrls.map((image) => {
+        let uploadedImageUrls = imageUrl.current;
+
+        imageUrls.map(async (image) => {
             if(image === null) return;
 
             const imageDupli = image.name + nanoid();
 
-            imageUrl += `${imageDupli},`;
+            uploadedImageUrls += `${imageDupli},`;
 
             const imageName = `images/${imageDupli}`; 
             const imageRef = ref(storage, imageName);
 
-            uploadBytes(imageRef, image);
+            await uploadBytes(imageRef, image);
         });  
         
-        console.log(imageUrl.split(','));
+        imageUrl.current = uploadedImageUrls;
+
+        console.log(imageUrl.current.split(','));
     };
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,29 +122,55 @@ export default function AddProduct() {
           params.append("description", description);
           params.append("price", price);
           params.append("category", category);
-          params.append("image", imageUrl);
+          params.append("image", imageUrl.current);
           return httpRequest.post(`${url}/sell/add`, params);
         },
         queryKey: ["sell", "product"],
         enabled: false,
-      });
+    });
+    
+    const updateProduct = useMutation({
+        mutationFn: () => {
+            const params = new URLSearchParams();
+            params.append("name", product);
+            params.append("description", description);
+            params.append("price", price);
+            params.append("category", category);
+            params.append("image", existingProduct.images);
+            params.append("productId", existingProduct._id);
+            return httpRequest.put(`${url}/sell/update`, params);
+        },
+        onSuccess: (data) => {
+            navigate(`/product/${data.data.product._id}`);
+        },
+        onError: () => {
+            handleToast("Something Error occurred...");
+            navigate(`/auth/signin`);
+        },
+    });
 
-      if(isError) {
-        logout();
-        handleToast("Something Error occured...")
-        navigate(`/auth/siginin`);
-      }
+    useEffect(() => {
+        if(isError) {
+            handleToast("Something Error occurred...");
+        }
 
-      if(isSuccess) {
-        navigate(`/product/${data.data._id}`);
-      }
+        if(isSuccess) {
+            navigate(`/product/${data.data._id}`);
+        }
+    }, [isSuccess, isError, data, logout, handleToast, navigate]);
 
 
     const handleSubmit = async () => {
-        if(product && description && price && category && imageUrls.length > 0 ) {
+        if(product && description && price && category && (mode === "edit" ? true : imageUrls.length > 0) ) {
             console.log("Submit The data");
-            await uploadFile();
-            await sellProduct();
+            
+
+            if(mode === "edit") {
+                await updateProduct.mutate();
+            } else {
+                await uploadFile();
+                await sellProduct();
+            } 
         }
 
         else {
@@ -133,14 +179,12 @@ export default function AddProduct() {
     }
 
 
+    if(mode === "edit") 
+        console.log("Product Id : ", existingProduct._id);
+
+
     return (
-        <div
-            style={{
-                width: '80%',
-                margin: "auto",
-                paddingBottom: "50px"
-            }}
-        >
+        <div style={{ width: '80%', margin: "auto", paddingBottom: "50px" }}>
             <Typography
                 variant="h4"
                 gutterBottom
@@ -149,7 +193,7 @@ export default function AddProduct() {
                     textAlign: 'center',
                 }}
             >
-                Sell Your Product
+                {mode === "edit" ? "Edit Your Product" : "Sell Your Product"}
             </Typography>
 
             <Box
@@ -196,7 +240,6 @@ export default function AddProduct() {
                             label="Price"
                             placeholder="Enter Price of the Product"
                             type="number"
-                            variant="outlined"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                             required
@@ -224,19 +267,23 @@ export default function AddProduct() {
                         </RadioGroup>
                     </FormControl>
 
-                    <Button
-                        component="label"
-                        role={undefined}
-                        variant="contained"
-                        tabIndex={-1}
-                        startIcon={<CloudUploadIcon />}
-                        sx={{
-                            width: "100%",
-                        }}   
-                    >
-                        Upload Images
-                        <input type="file" multiple hidden onChange={handleImageChange} />
-                    </Button>
+                    { ( mode !== "edit" ) && (
+                        <Button
+                            component="label"
+                            role={undefined}
+                            variant="contained"
+                            tabIndex={-1}
+                            startIcon={<CloudUploadIcon />}
+                            sx={{
+                                width: "100%",
+                            }}   
+                        >
+                            Upload Images
+                            <input type="file" multiple hidden onChange={handleImageChange} />
+                        </Button>
+                    )}
+
+                    
 
                     {imageUrls.length > 0 && (
                         <Box
@@ -275,7 +322,7 @@ export default function AddProduct() {
                         }}
                         onClick={handleSubmit}
                     >
-                        Sell Now
+                        {mode === "edit" ? "Update Product" : "Sell Now" }
                     </Button>
                 </FormControl>
             </Box>

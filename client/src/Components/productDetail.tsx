@@ -8,6 +8,7 @@ import { url } from "../utils/baseUrl";
 import { useAppContext } from "../App";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/Auth";
+import { loadStripe } from "@stripe/stripe-js";
 
 
 export default function ProductDetail() {
@@ -68,6 +69,32 @@ export default function ProductDetail() {
         }
     }, [isAuthenticated, cartCheck]);
 
+    const handleBuynow = async () => {
+        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+
+        const body = {
+            products: data?.data?.product
+        }
+        const headers = {
+            "Content-Type":"application/json"
+        }
+        const response = await fetch(`${url}/user/payment/create-checkout-session`, {
+            method:"POST",
+            headers:headers,
+            body:JSON.stringify(body)
+        });
+
+        const session = await response.json();
+
+        const result = await stripe?.redirectToCheckout({
+            sessionId:session.id
+        });
+        
+        if(result?.error){
+            console.log(result.error);
+        }
+    }
+
 
     const handleAddtoCart = () => {
         if(isAuthenticated) {
@@ -115,7 +142,7 @@ export default function ProductDetail() {
                     <h5>
                         owner{" "}
                         
-                        <Link to={`/user/${data?.data.user._id}`}>
+                        <Link to={`/user/${data?.data.user._id}/${isAuthenticated ? `wishlist` : 'product'}`}>
                             <strong>{data?.data.user.name}</strong>
                         </Link>
                     </h5>
@@ -168,7 +195,7 @@ export default function ProductDetail() {
                         { (cartData?.data?.cart?.includes(productId) ||
                            cartCheckData?.data?.cart?.includes(productId)) ? (
                             
-                            <Link to={`/user/${data?.data.user._id}/cartItems`}
+                            <Link to={`/cartItems`}
                                 style={{ 
                                     color: "white", 
                                     textDecoration: "none",
@@ -217,6 +244,7 @@ export default function ProductDetail() {
                                 fontWeight: "bold",
                                 color: "#ebe3e3",
                             }}
+                            onClick={handleBuynow}
                         >
                             <i className="fa-solid fa-bag-shopping" style={{marginRight: "10px",}}></i>
                             Buy Now

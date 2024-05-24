@@ -75,7 +75,7 @@ function TopButton({ theme }: TopButtonProps) {
             onMouseEnter={() => onMouseEnter(theme.text, theme.body)}
             onMouseLeave={() => onMouseLeave(theme.body, theme.text)}
         >
-            <a href="/add" id="arrow">
+            <a href="/sell" id="arrow">
                 <i className="fa-solid fa-plus"></i>
             </a>
             

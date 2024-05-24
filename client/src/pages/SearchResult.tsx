@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { httpRequest } from "../Interceptor/axiosInterceptor";
 import { useQuery } from "@tanstack/react-query";
 import { url } from "../utils/baseUrl";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import ProductCard from "../Components/Product";
 import Footer from "../Components/Footer/Footer";
 import TopButton from "../Components/TopButton/TopButton";
@@ -36,6 +36,8 @@ export default function SearchResults() {
     }, [isSuccess, data]);
 
     
+    const isSmallScreen = useMediaQuery('(max-width:430px)');
+    const isBigScreen = useMediaQuery('(min-width: 770px')
     
 
 
@@ -50,16 +52,21 @@ export default function SearchResults() {
             >
                 <h1
                     style={{
-                    fontSize: "40px",
-                    marginBottom: "-12px",
-                    wordSpacing: "5px",
+                        marginTop: "15px",
+                        marginLeft: "20px",
+                        fontSize: isBigScreen ? "30px" : isSmallScreen ? "20px" : "30px",
+                        marginBottom: "-12px",
+                        wordSpacing: "5px",
                     }}
                 >
                     <span style={{ color: "#7f7f7f" }}>{"Results for "}</span>
                     <span>{query}</span>
                 </h1>
                 <Box
-                    
+                    sx={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+                    }}
                 >
                     {product.map((item) => {
                         return (
@@ -79,10 +86,8 @@ export default function SearchResults() {
             </Box>
             
             
-            <Footer />
-            {/* <Greeting theme={this.props.theme} />
-            <Skills theme={this.props.theme} />
-            <Footer theme={this.props.theme} /> */}
+            
+           
             <TopButton theme={{ body: "#EDF9FE", text: "#001C55" }} />
 
         </Box>

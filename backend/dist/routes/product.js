@@ -1,5 +1,5 @@
 import express from "express";
-import { addProduct, getHomeProducts, getProduct } from "../Controllers/productController.js";
+import { addProduct, getHomeProducts, getProduct, updateProduct } from "../Controllers/productController.js";
 import isAuthenticated from "../middleware/auth.js";
 import { querySearch } from "../Controllers/searchControllers.js";
 const router = express.Router();
@@ -7,6 +7,8 @@ const router = express.Router();
 router.get("/test", (req, res, next) => { res.send("It is working"); });
 // Add Products
 router.post("/add", isAuthenticated, addProduct);
+// update Product
+router.put("/update", isAuthenticated, updateProduct);
 // Get Home page posts
 router.get("/home", getHomeProducts);
 // Search
