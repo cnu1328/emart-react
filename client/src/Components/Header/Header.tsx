@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import "./Header.css";
 import { useAuth } from "../../context/Auth";
 import AvatarMenu from "../AvatarMenu";
