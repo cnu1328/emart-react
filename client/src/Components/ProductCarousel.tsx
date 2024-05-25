@@ -55,10 +55,15 @@ const dotsVariants = {
 };
 
 
-export default function ProductCarousel({images}) {
+type ProductCarouselProps = {
+    images: string[];
+};
+
+
+export default function ProductCarousel({images} : ProductCarouselProps) {
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [direction, setDirection] = useState("left");
+    const [direction, setDirection] = useState<"right" | "left">("left");
 
     const handleNext = () => {
         setDirection("right");
@@ -74,7 +79,7 @@ export default function ProductCarousel({images}) {
         );
     };
 
-    const handleDotClick = (index) => {
+    const handleDotClick = (index: number) => {
         setDirection(index > currentIndex ? "right" : "left");
         setCurrentIndex(index);
     };
@@ -202,7 +207,7 @@ export default function ProductCarousel({images}) {
                     transform: "translateX(-50%)"
                 }}
             >
-                {images.map((_, index) => (
+                {images.map((_, index : number) => (
                     
                     <motion.div
                         key={index}

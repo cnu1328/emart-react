@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, useTheme, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import Tab from "../Components/Tab";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAuth } from "../context/Auth";
 import UserNavList from "../Components/WishList";
 import UserCard from "../Components/UserCard";
@@ -42,7 +43,7 @@ export default function UserDetail() {
 
     const { tab, userId } = useParams();
     const { user } = useAuth();
-    const [query] = useSearchParams();
+    
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -53,7 +54,7 @@ export default function UserDetail() {
 
     
     const [products, setProducts] = useState<Array<any>>([]);
-    const [ userData, setUserData] = useState<Array<any>>([]);
+    
     
     console.log(userId);
     const { data, isSuccess : isGetUserData } = useQuery({

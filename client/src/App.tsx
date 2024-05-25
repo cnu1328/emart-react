@@ -9,7 +9,6 @@ import { Toaster, toast, Toast } from "react-hot-toast";
 import CloseIcon from "@mui/icons-material/Close";
 
 
-
 import './App.css'
 import Main from "./pages/Main";
 import Header from './Components/Header/Header';

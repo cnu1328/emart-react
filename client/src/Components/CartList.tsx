@@ -1,13 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Typography } from "@mui/material";
 import Footer from "./Footer/Footer";
-import TopButton from "./TopButton/TopButton";
 import ProductCard from "./Product";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { httpRequest } from "../Interceptor/axiosInterceptor";
 import { url } from "../utils/baseUrl";
 import { useAuth } from "../context/Auth";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useAppContext } from "../App";
 import AlertDialog from "./AlertDialog";
 
@@ -23,7 +24,7 @@ export default function CartList() {
     
     const { isAuthenticated } = useAuth();
     const { handleToast } = useAppContext();
-    const navigate = useNavigate();
+    
 
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedProductId, setSelectedProductId] = useState<string | null>(null);

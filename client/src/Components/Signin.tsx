@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useParams } from "react-router-dom";
 import SignInBox from "./SiginIn/SignInBox";
 import { useAppContext } from "../App";

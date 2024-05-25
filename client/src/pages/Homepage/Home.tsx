@@ -1,4 +1,6 @@
-import React, { Component, useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
+import  { useEffect, useState } from "react";
 // import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import TopButton from "../../Components/TopButton/TopButton";
@@ -7,7 +9,7 @@ import { httpRequest } from "../../Interceptor/axiosInterceptor";
 import { url } from "../../utils/baseUrl";
 import { Box } from "@mui/material";
 import ProductCard from "../../Components/Product";
-import { useNavigate } from "react-router-dom";
+
 
 export default function Home() {
 
@@ -16,7 +18,6 @@ export default function Home() {
 
     document.title = "RGUKT-EMART";
 
-    const navigate = useNavigate();
 
     const {refetch: getProducts, isSuccess, data} = useQuery({
         queryFn: () => httpRequest.get(`${url}/sell/home`),

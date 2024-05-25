@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { InternalAxiosRequestConfig } from "axios";
 import { url } from "../utils/baseUrl";
 

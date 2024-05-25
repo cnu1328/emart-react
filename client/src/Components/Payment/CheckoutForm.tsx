@@ -1,4 +1,4 @@
-import React, {useState, FormEvent} from 'react';
+import {useState, FormEvent} from 'react';
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 
 

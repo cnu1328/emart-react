@@ -16,7 +16,7 @@ import {
 
 } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { useTheme, styled } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import "./addProduct.css";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { httpRequest } from "../../Interceptor/axiosInterceptor";

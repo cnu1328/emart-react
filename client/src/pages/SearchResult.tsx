@@ -1,12 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from "react-router-dom";
-import { useAuth } from "../context/Auth";
 import { useState, useEffect } from "react";
 import { httpRequest } from "../Interceptor/axiosInterceptor";
 import { useQuery } from "@tanstack/react-query";
 import { url } from "../utils/baseUrl";
 import { Box, useMediaQuery } from "@mui/material";
 import ProductCard from "../Components/Product";
-import Footer from "../Components/Footer/Footer";
 import TopButton from "../Components/TopButton/TopButton";
 
 export default function SearchResults() {

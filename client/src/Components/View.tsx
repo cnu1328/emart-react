@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import Footer from "./Footer/Footer";
 import TopButton from "./TopButton/TopButton";

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState, useEffect } from "react";
 import {
@@ -5,7 +6,7 @@ import {
   uploadBytes,
   getDownloadURL,
   listAll,
-  list,
+ 
 } from "firebase/storage";
 import { storage } from "../../Firebase/firebase";
 

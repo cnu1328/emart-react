@@ -1,7 +1,7 @@
 
 function Home() {
 
-    function navigate(url){
+    function navigate(url : string){
         window.location.href = url;
     }
 

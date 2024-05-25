@@ -1,7 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom";
 import { emailIcon, googleIcon } from "../../assets/icons";
-import { GoogleLogin, googleLogout} from "@react-oauth/google";
-
 
 type SignInBoxType = {
   message?: string;

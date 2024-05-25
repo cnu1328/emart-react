@@ -1,5 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
 import { useQuery } from "@tanstack/react-query";
-import { createContext, ReactNode, useContext, useState, useEffect } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { url } from "../utils/baseUrl";
 import useLocalStorage, { clearLocalStorage } from "../hooks/useLocalStorage";
 import { httpRequest } from "../Interceptor/axiosInterceptor";

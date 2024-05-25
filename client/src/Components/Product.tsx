@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { 
     Box,
     Typography,
@@ -16,7 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import FavoriteIcon from '@mui/icons-material/Favorite'; 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { httpRequest } from '../Interceptor/axiosInterceptor';
 
 type ProductProps = {
