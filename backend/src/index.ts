@@ -17,7 +17,11 @@ config();
 const app = express();
 
 // Middlewares
-app.use(cors({ origin : "https://rgukt-emart.vercel.app", credentials: true}));
+app.use(cors({ 
+  origin : ["https://rgukt-emart.vercel.app"],
+  methods: ["POST", "GET"],
+  credentials: true
+}));
 app.use(cookieParser(process.env.COOKIE_SECRET, )) //It is used to send the cookies from backend to frontend
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
@@ -30,6 +34,11 @@ declare global {
     }
   }
 }
+
+
+app.use("/", (req, res, next) => {
+  res.json("It is working fine");
+});
 
 app.use("/test", (req, res, next) => {
   res.send("It is working fine");
