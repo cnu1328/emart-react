@@ -5,6 +5,7 @@ import {
   useContext,
  
 } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Toaster, toast, Toast } from "react-hot-toast";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -12,6 +13,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import './App.css'
 import Main from "./pages/Main";
 import Header from './Components/Header/Header';
+import Home from "./pages/Homepage/Home";
+import View from "./Components/View";
+import Authentication from "./router/Authentication";
 
 
 export const DEFAULT_IMG =
@@ -55,16 +59,34 @@ function App() {
   };
 
   return (
+    
     <Context.Provider value={contextValue}>
       <Toaster position="bottom-left" reverseOrder={false} />
       <div className="App" style={{ height: "100vh"}}>
-        {showNav ? (
+        {showNav && (
           <Header />
-        ) :(
-          <></>
         )}
         
         <Main />
+
+        <Routes>
+
+          <Route 
+              path="/home?"
+              
+              element={<Home  />}
+          />
+
+          <Route 
+            path="/view"
+            element={
+                <Authentication fallback={<Navigate to="/auth/signup" />}>
+                    <View />
+                </Authentication>
+                
+            }
+          />
+        </Routes>
 
       </div>
       
