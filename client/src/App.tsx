@@ -5,7 +5,7 @@ import {
   useContext,
  
 } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+
 import { Toaster, toast, Toast } from "react-hot-toast";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -13,10 +13,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import './App.css'
 import Main from "./pages/Main";
 import Header from './Components/Header/Header';
-import Home from "./pages/Homepage/Home";
-import View from "./Components/View";
-import Authentication from "./router/Authentication";
-
 
 export const DEFAULT_IMG =
   "https://firebasestorage.googleapis.com/v0/b/upload-pics-e599e.appspot.com/o/images%2F1_dmbNkD5D-u45r44go_cf0g.png?alt=media&token=3ef51503-f601-448b-a55b-0682607ddc8a";
@@ -69,24 +65,6 @@ function App() {
         
         <Main />
 
-        <Routes>
-
-          <Route 
-              path="/home?"
-              
-              element={<Home  />}
-          />
-
-          <Route 
-            path="/view"
-            element={
-                <Authentication fallback={<Navigate to="/auth/signup" />}>
-                    <View />
-                </Authentication>
-                
-            }
-          />
-        </Routes>
 
       </div>
       
