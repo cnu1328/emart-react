@@ -53,7 +53,7 @@ app.use("/search", searchRouter);
 
 mongoose
     .connect(process.env.MONGO_URI)
-    .then(() => app.listen(2157))
+    .then(() => app.listen(8080))
     .then(() => console.log("Server running at PORT : 2157  And MongoDB Database is connected."))
     .catch((err) => console.log(err));
 
