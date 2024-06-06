@@ -263,6 +263,18 @@ export default function AddProduct() {
                             <FormControlLabel value="Books" control={<Radio />} label="Books" />
                             <FormControlLabel value="Calculator" control={<Radio />} label="Calculator" />
                             <FormControlLabel value="Drafter" control={<Radio />} label="Drafter" />
+			    <FormControlLabel value="Lab" control={<Radio />} label="Lab" />
+			    <FormControlLabel value="Acadamic" control={<Radio />} label="Acadamic" />
+     			    <FormControlLabel value="Sports" control={<Radio />} label="Sports" />
+			    <FormControlLabel value="Study Chair" control={<Radio />} label="Study Chair" />
+			    <FormControlLabel value="Technical" control={<Radio />} label="Technical" />
+			    <FormControlLabel value="Birthday" control={<Radio />} label="Birthday" />
+			    <FormControlLabel value="Cloths" control={<Radio />} label="Cloths" />
+			    <FormControlLabel value="Bottle" control={<Radio />} label="Bottle" />
+			    <FormControlLabel value="Lock" control={<Radio />} label="Lock" />
+			    <FormControlLabel value="Extension Box" control={<Radio />} label="Extension Box" />
+			    <FormControlLabel value="Laguage Bag" control={<Radio />} label="Laguage Bag" />
+			    <FormControlLabel value="Plants" control={<Radio />} label="Plants" />
                             
                         </RadioGroup>
                     </FormControl>

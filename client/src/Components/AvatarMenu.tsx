@@ -17,7 +17,7 @@ export default function AvatarMenu() {
   const { isAuthenticated, user, logout } = useAuth();
   return isAuthenticated ? (
     <AuthMenu
-      avatar={user!.avatar}
+      avatar={user?.avatar || DEFAULT_IMG}
       email={user!.email}
       userId={user!._id}
       logout={logout}

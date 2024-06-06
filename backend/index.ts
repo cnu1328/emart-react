@@ -18,8 +18,8 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-  origin: ["https://rgukt-emart.vercel.app"],
-  methods: ["POST", "GET"]
+  origin: ["http://localhost:5173"],
+  methods: ["POST", "GET", "PATCH"]
 }));
 app.use(cookieParser(process.env.COOKIE_SECRET,)) //It is used to send the cookies from backend to frontend
 app.use(express.json());
@@ -35,9 +35,9 @@ declare global {
 }
 
 
-app.use("/", (req, res, next) => {
-  res.json("It is working fine");
-});
+// app.use("/", (req, res, next) => {
+//   res.json("It is working fine");
+// });
 
 app.use("/test", (req, res, next) => {
   res.send("It is working fine");
@@ -53,8 +53,8 @@ app.use("/search", searchRouter);
 
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => app.listen(8080))
-  .then(() => console.log("Server running at PORT : 2157  And MongoDB Database is connected."))
+  .then(() => app.listen(process.env.PORT))
+  .then(() => console.log("Server running at PORT : 5000  And MongoDB Database is connected."))
   .catch((err) => console.log(err));
 
 
