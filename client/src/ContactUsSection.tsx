@@ -5,7 +5,7 @@ import "./ContactUsSection.css";
 
 const ContactUsSection: React.FC = () => {
   document.title = "RGUKT-contactus";
-  const adminEmail = 'admin123@gmail.com';
+  const adminEmail = 'srinudharpally';
   const ImageUrl = "logo.png";
 
   return (
