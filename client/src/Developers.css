@@ -1,0 +1,96 @@
+/* Developers.css */
+.developers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f0f8ff; /* AliceBlue */
+}
+/* Developer.css */
+
+/* Container for each developer card */
+.developer-card {
+  background-color: #f9f9f9; /* Light gray background */
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Padding inside the card */
+  display: flex; /* Flexbox for layout */
+  align-items: center; /* Center alignment for flex items */
+  width: 100%; /* Full width */
+  max-width: 600px; /* Max width for better readability */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.3s ease-in-out; /* Smooth transform transition */
+  margin-bottom: 20px; /* Space between cards */
+}
+
+/* Hover effect to lift the card slightly */
+.developer-card:hover {
+  transform: translateY(-5px); /* Lift the card */
+}
+
+/* Style for developer profile photos */
+.developer-photo {
+  border-radius: 50%; /* Circular photos */
+  width: 100px; /* Fixed width */
+  height: 100px; /* Fixed height */
+  object-fit: cover; /* Cover the box */
+  margin-right: 20px; /* Space to the right of the photo */
+}
+
+/* Container for developer details */
+.developer-details {
+  flex: 1; /* Take up remaining space */
+  display: flex; /* Flexbox for layout */
+  flex-direction: column; /* Column direction */
+}
+
+/* Developer name style */
+.developer-details h2 {
+  font-size: 1.5em; /* Larger font size */
+  margin-bottom: 10px; /* Space below the name */
+}
+
+/* Developer email style */
+.developer-details p {
+  font-size: 1em; /* Default font size */
+  margin-bottom: 15px; /* Space below the email */
+  color: #555555; /* Dark gray text */
+}
+
+/* Container for social icons */
+.social-icons {
+  display: flex; /* Flexbox for horizontal alignment */
+  gap: 15px; /* Space between icons */
+}
+
+/* Style for social icons */
+.social-icons a {
+  font-size: 1.5em; /* Larger icons */
+  color: orange; /* Dark gray icons */
+  transition: color 0.3s ease-in-out; /* Smooth color transition */
+}
+
+/* Hover effect for social icons */
+.social-icons a:hover {
+  color: #007bff; /* Blue color on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .developer-card {
+    flex-direction: column; /* Stack items vertically on small screens */
+    align-items: center; /* Center align items */
+    padding: 15px; /* Adjust padding */
+  }
+
+  .developer-photo {
+    margin-right: 0; /* Remove right margin */
+    margin-bottom: 15px; /* Add bottom margin */
+  }
+
+  .developer-details {
+    align-items: center; /* Center align details */
+    text-align: center; /* Center text */
+  }
+}

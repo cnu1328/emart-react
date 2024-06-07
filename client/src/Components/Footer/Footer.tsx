@@ -9,13 +9,16 @@ function Footer() {
         <div className="footer-about">
           <ul>
             <li>
-              <h3>Services</h3>
+              <h3 className="services-head" >Services</h3>
             </li>
             <li>
               <a href="/sell">Sell</a>
             </li>
             <li>
               <a href="/home">Buy</a>
+            </li>
+            <li>
+              <a href="/developers">Developers</a>
             </li>
           </ul>
         </div>

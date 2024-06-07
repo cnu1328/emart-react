@@ -14,6 +14,10 @@ import CartList from "../Components/CartList";
 import Checkout from "../Components/Payment/Checkout";
 import Success from "../Components/Payment/Success";
 import Cancel from "../Components/Payment/Cancel";
+import ContactUsForm from "../ContactUsForm";
+import ContactUsSection from "../ContactUsSection";
+import AboutSection from "../Components/AboutSection";
+import Developers from "../Developers";
 
 export default class Main extends Component {
     render() {
@@ -110,11 +114,24 @@ export default class Main extends Component {
                         path="oauth/redirect/"
                         element={<AuthRedirect />}
                     />
-
-                    
+                    <Route
+                        path = "/contactus"
+                        element = {<ContactUsSection />}
+                    />
+                    <Route
+                        path = "/contactusform"
+                        element = {<ContactUsForm adminEmail={""} />}
+                    />
+                    <Route
+                        path = "/about"
+                        element = {<AboutSection />}
+                    />
+                    <Route
+                        path="/developers"
+                        element = {<Developers />}
+                    />
                 </Routes>
             </div>
         );         
     }
-
 }
