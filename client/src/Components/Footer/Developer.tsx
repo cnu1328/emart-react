@@ -10,6 +10,7 @@ interface DeveloperProps {
     email: string;
     photo: string;
     background : string;
+    role : string;
     social: {
       twitter: string;
       linkedin: string;
@@ -26,6 +27,7 @@ const Developer: React.FC<DeveloperProps> = ({ developer }) => {
       <div className="developer-details">
         <h2>{developer.name}</h2>
         <p>{developer.email}</p>
+        <p>{developer.role}</p>
         <div className="social-icons">
           <a href={developer.social.twitter} target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faTwitter} />

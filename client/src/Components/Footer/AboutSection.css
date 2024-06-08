@@ -5,13 +5,12 @@ body {
     font-weight: bold;
 }
 
-p
-{
+p {
     font-weight: bold;
+    text-align: justify; /* Aligns text in paragraph tags */
 }
 
-ul li
-{
+ul li {
     font-weight: bold;
 }
 
@@ -29,15 +28,16 @@ ul li
     color: navy;
 }
 
-.hero-section h2 {
-    color: violet;
-    font-size: 3rem;
-}
-
 .hero-section p {
     color: orange;
     font-size: 1.2rem;
     font-weight: bold;
+    margin-left: 320px;
+}
+
+.hero-section h2 {
+    color: violet;
+    font-size: 3rem;
 }
 
 /* Introduction Section */
@@ -71,8 +71,7 @@ ul li
     color: #007bff; /* Blue */
 }
 
-.key-features i:hover
-{
+.key-features i:hover {
     color: orange;
 }
 
@@ -144,7 +143,7 @@ ul li
     margin-bottom: 10px;
     color: #007bff; /* Blue */
 }
-
+    
 .faq-section .col-md-6 h4 {
     color: #20b2aa; /* LightSeaGreen */
 }

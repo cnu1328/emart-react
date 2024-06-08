@@ -24,13 +24,13 @@ const ContactUsForm: React.FC<ContactFormProps> = ({ adminEmail }) => {
       <h1>Contact Us Form</h1>
       <div className="form-group">
         <label>
-          Admin Email:
+          Admin Email
           <input type="email" value={adminEmail} readOnly />
         </label>
       </div>
       <div className="form-group">
         <label>
-          Your Email*:
+          Your Email*
           <input
             type="email"
             value={userEmail}
@@ -41,7 +41,7 @@ const ContactUsForm: React.FC<ContactFormProps> = ({ adminEmail }) => {
       </div>
       <div className="form-group">
         <label>
-          Your Message*:
+          Your Message*
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -51,7 +51,7 @@ const ContactUsForm: React.FC<ContactFormProps> = ({ adminEmail }) => {
       </div>
       <div className="form-group">
         <label>
-          Photos:
+          Photos
           <input
             type="file"
             onChange={(e) => setPhotos(e.target.files)}

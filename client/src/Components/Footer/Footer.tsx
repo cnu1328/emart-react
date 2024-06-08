@@ -28,7 +28,7 @@ function Footer() {
               <h3>Help and Support</h3>
             </li>
             <li>
-              <a href="/contact">Contact Us</a>
+              <a href="/contactus">Contact Us</a>
             </li>
             <li>
               <a href="/about">About</a>

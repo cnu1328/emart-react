@@ -30,29 +30,29 @@ const AboutSection: React.FC = () => {
                 <Container>
                     <h2>Key Features</h2>
                     <Row>
-                        <Col md={4} className="text-center">
+                        <Col md={4} className="text-center features">
                             <i className="fas fa-shopping-cart"></i>
                             <h4>Wide Range of Products</h4>
                             <p>From groceries to gadgets, find everything you need at competitive prices. Our inventory is continuously updated to cater to the dynamic needs of our college community.</p>
                         </Col>
-                        <Col md={4} className="text-center">
+                        <Col md={4} className="text-center features">
                             <i className="fas fa-exchange-alt"></i>
                             <h4>Buy & Sell Pre-loved Projects</h4>
                             <p>Are you a senior looking to sell your old projects? Or a junior seeking affordable resources? eMart bridges the gap, allowing students to buy and sell used projects, books, and supplies at low costs.</p>
                         </Col>
-                        <Col md={4} className="text-center">
+                        <Col md={4} className="text-center features">
                             <i className="fas fa-lock"></i>
                             <h4>Secure Transactions</h4>
                             <p>Your safety is our priority. Enjoy secure payment options and buyer protection policies to ensure a hassle-free shopping experience.</p>
                         </Col>
                     </Row>
                     <Row className="mt-4">
-                        <Col md={4} className="text-center">
+                        <Col md={4} className="text-center features">
                             <i className="fas fa-users"></i>
                             <h4>User-friendly Interface</h4>
                             <p>Our platform is designed to be intuitive and easy to navigate. Quickly find what you’re looking for with our efficient search and category filters.</p>
                         </Col>
-                        <Col md={4} className="text-center">
+                        <Col md={4} className="text-center features">
                             <i className="fas fa-heart"></i>
                             <h4>Community Driven</h4>
                             <p>Connect with fellow students and support the campus ecosystem. eMart fosters a sense of community by facilitating transactions among trusted peers.</p>
@@ -119,27 +119,27 @@ const AboutSection: React.FC = () => {
                     <Row>
                         <Col md={6}>
                             <h4>Q1: Who can use eMart?</h4>
-                            <p>A: eMart is exclusively available to students of RGUKT BASAR. You need a valid college email to register.</p>
+                            <p>eMart is exclusively available to students of RGUKT BASAR. You need a valid college email to register.</p>
                         </Col>
                         <Col md={6}>
                             <h4>Q2: How do I list an item for sale?</h4>
-                            <p>A: Log in to your eMart account, go to the "Sell" section, and follow the prompts to create a listing. Fill in all required details and upload clear images of your item.</p>
+                            <p>Log in to your eMart account, go to the "Sell" section, and follow the prompts to create a listing. Fill in all required details and upload clear images of your item.</p>
                         </Col>
                     </Row>
                     <Row className="mt-4">
                         <Col md={6}>
                             <h4>Q3: What types of payments are accepted?</h4>
-                            <p>A: We accept various payment methods, including credit/debit cards, PayPal, and direct bank transfers. All transactions are secured to protect your information.</p>
+                            <p>We accept various payment methods, including credit/debit cards, PayPal, and direct bank transfers. All transactions are secured to protect your information.</p>
                         </Col>
                         <Col md={6}>
                             <h4>Q4: Can I return a purchased item?</h4>
-                            <p>A: Yes, returns are possible within a specified period if the item is not as described or defective. Please refer to our return policy for more details.</p>
+                            <p>Yes, returns are possible within a specified period if the item is not as described or defective. Please refer to our return policy for more details.</p>
                         </Col>
                     </Row>
                     <Row className="mt-4">
                         <Col md={6}>
                             <h4>Q5: How do I contact customer support?</h4>
-                            <p>A: You can reach our customer support team through the "Contact Us" section on the website. We are here to assist you with any issues or queries.</p>
+                            <p>You can reach our customer support team through the "Contact Us" section on the website. We are here to assist you with any issues or queries.</p>
                         </Col>
                     </Row>
                 </Container>

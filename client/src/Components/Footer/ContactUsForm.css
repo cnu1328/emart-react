@@ -8,7 +8,7 @@ form {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: turquoise;
+  background-color: #f9f9f9;
   color: black;
 }
 
@@ -31,9 +31,9 @@ label {
   margin-bottom: 5px;
 }
 
-input[type="email"],
-textarea,
-input[type="file"] {
+label > input,
+label > textarea,
+label > input[type="file"] {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;

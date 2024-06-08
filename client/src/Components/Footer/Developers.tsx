@@ -10,6 +10,7 @@ const developers = [
     email: 'srinudarpally@gmail.com',
     photo: 'srinu.jpeg',
     background : "e6e6fa",
+    role : "Full Stack Developer",
     social: 
     {
       twitter: 'https://twitter.com',
@@ -24,6 +25,7 @@ const developers = [
     email: 'chithraalle@gmail.com',
     photo: 'chithra.jpeg',
     background : "e6e6fa",
+    role : "Full Stack Developer",
     social: {
       twitter: 'https://x.com/ChithraAlle',
       linkedin: 'https://www.linkedin.com/in/chithra-alle-8a2169292',
@@ -37,6 +39,7 @@ const developers = [
     email: 'karthikjodu25072@gmail.com',
     photo: 'karthik.jpeg',
     background : "e6e6fa",
+    role : "Full Stack Developer",
     social: {
       twitter: 'https://twitter.com',
       linkedin: 'https://linkedin.com',
@@ -49,6 +52,7 @@ const developers = [
 const Developers: React.FC = () => {
   return (
     <div className="developers-container">
+      <h1>Developers</h1>
       {developers.map(developer => (
         <Developer key={developer.id} developer={developer} />
       ))}
