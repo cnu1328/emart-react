@@ -1,0 +1,159 @@
+/* Global Styles */
+body {
+    color: #333;
+    background-color: white;
+    font-weight: bold;
+}
+
+p {
+    font-weight: bold;
+    text-align: justify; /* Aligns text in paragraph tags */
+}
+
+ul li {
+    font-weight: bold;
+}
+
+/* Hero Section */
+.hero-section {
+    background-size: cover;
+    color: black;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: navy;
+}
+
+.hero-section p {
+    color: orange;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 320px;
+}
+
+.hero-section h2 {
+    color: violet;
+    font-size: 3rem;
+}
+
+/* Introduction Section */
+.intro {
+    background-color: #f0f8ff; /* Light background color */
+    color: #000;
+    padding: 50px 0;
+}
+
+.intro h2 {
+    color: springgreen;
+    font-size: 2.2rem;
+}
+
+/* Key Features Section */
+.key-features {
+    background-color: #ffe4e1; /* Light pink background */
+    color: #000;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.key-features h2 {
+    color: #ff6347; /* Tomato */
+    margin-bottom: 40px;
+}
+
+.key-features i {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #007bff; /* Blue */
+}
+
+.key-features i:hover {
+    color: orange;
+}
+
+.key-features .col-md-4 h4 {
+    color: #32cd32; /* LimeGreen */
+}
+
+/* User Benefits Section */
+.user-benefits {
+    background-color: #e6e6fa; /* Light lavender background */
+    color: #000;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.user-benefits h2 {
+    color: orange;
+    margin-bottom: 40px;
+}
+
+.user-benefits i {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #007bff; /* Blue */
+}
+
+.user-benefits .col-md-6 h4 {
+    color: #6a5acd; /* SlateBlue */
+}
+
+/* How It Works Section */
+.how-it-works {
+    background-color: #fafad2; /* Light goldenrod yellow background */
+    color: #000;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.how-it-works h2 {
+    color: #ff4500; /* OrangeRed */
+    margin-bottom: 40px;
+}
+
+.how-it-works i {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #007bff; /* Blue */
+}
+
+.how-it-works .col-md-6 h4 {
+    color: #8a2be2; /* BlueViolet */
+}
+
+/* FAQ Section */
+.faq-section {
+    background-color: #f8f9fa; /* Light gray background */
+    color: #000;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.faq-section h2 {
+    color: #ff6347; /* Tomato */
+    margin-bottom: 40px;
+}
+
+.faq-section i {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #007bff; /* Blue */
+}
+    
+.faq-section .col-md-6 h4 {
+    color: #20b2aa; /* LightSeaGreen */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2em;
+    }
+    .key-features .col-md-4, .user-benefits .col-md-6, .how-it-works .col-md-6, .faq-section .col-md-6 {
+        text-align: center;
+    }
+}

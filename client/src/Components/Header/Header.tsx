@@ -5,8 +5,6 @@ import AvatarMenu from "../AvatarMenu";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../App";
 
-
-
 function Header() {
 
   const [showSearch, setShowSearch] = useState(false);
@@ -30,7 +28,7 @@ function Header() {
     <div>
       <header className="header">
         <div className="logo-name">
-            <a href="/" className="logo">RGUKT <i className="fa-solid fa-cart-shopping"></i> Emart</a>
+            <a href="/home" className="logo">RGUKT <i className="fa-solid fa-cart-shopping"></i> Emart</a>
         </div>
 
         <input className="menu-btn" type="checkbox" id="menu-btn" />
