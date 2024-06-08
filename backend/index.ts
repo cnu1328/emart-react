@@ -21,6 +21,12 @@ app.use(cors({
   origin: "https://rgukt-emart.vercel.app",
   methods: ["POST", "GET", "PATCH"]
 }));
+
+app.use(function (request, response, next) {
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(cookieParser(process.env.COOKIE_SECRET,)) //It is used to send the cookies from backend to frontend
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
