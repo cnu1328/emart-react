@@ -81,6 +81,8 @@ async function getUserFromCode(code: string) {
     grant_type: "authorization_code",
   };
 
+  console.log('Request values:', values);
+
   try {
     const res = await axios.post(url, qs.stringify(values), {
       headers: {
