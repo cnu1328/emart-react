@@ -1,5 +1,5 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
-import { url } from "../baseUrl";
+import { url } from "../utils/baseUrl";
 
 const axiosInstance = axios.create({
   baseURL: url,
