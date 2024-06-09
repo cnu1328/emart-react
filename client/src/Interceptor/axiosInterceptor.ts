@@ -1,5 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { url } from '../utils/baseUrl';
+import axios, { InternalAxiosRequestConfig } from "axios";
+import { url } from "../baseUrl";
 
 const axiosInstance = axios.create({
   baseURL: url,
@@ -9,48 +9,52 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-// Define a custom interface for AxiosRequestConfig to include headers
-interface CustomAxiosConfig extends AxiosRequestConfig {
-  headers: {
-    Authorization?: string;
-  };
+interface CustomAxiosConfig extends InternalAxiosRequestConfig<any> {
+  headers: any;
 }
 
 axiosInstance.interceptors.request.use(
   async (config: CustomAxiosConfig) => {
-    const accessToken = localStorage.getItem('access_token');
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${JSON.parse(accessToken)}`;
-    }
+    config.headers = {
+      Authorization: `Bearer ${JSON.parse(
+        localStorage.getItem("access_token")!
+      )}`,
+    };
     return config;
   },
   (error) => {
-    return Promise.reject(error);
+    Promise.reject(error);
   }
 );
 
 axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => response,
+  (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response.status === 401 && error.response.statusText === 'Unauthorized') {
-      const refreshToken = localStorage.getItem('refresh_token');
+    if (
+      error.response.status === 401 &&
+      error.response.data.message === "UnAuthorized, JWT Expired"
+    ) {
+      const refreshToken = localStorage.getItem("refresh_token");
 
       if (refreshToken) {
         try {
-          const response = await axiosInstance.post(`${url}/oauth/token`, {
+          const response = await axiosInstance.post(`${url}/auth/token`, {
             token: JSON.parse(refreshToken),
           });
+          localStorage.setItem(
+            "access_token",
+            JSON.stringify(response.data.access_token)
+          );
 
-          localStorage.setItem('access_token', JSON.stringify(response.data.access_token));
-
-          axiosInstance.defaults.headers['Authorization'] = `Bearer ${response.data.access_token}`;
-          originalRequest.headers['Authorization'] = `Bearer ${response.data.access_token}`;
-
-          return axiosInstance(originalRequest);
+          axiosInstance.defaults.headers["Authorization"] =
+            "Bearer " + response.data.access_token;
+          originalRequest.headers["Authorization"] =
+            "Bearer " + response.data.access_token;
+          return await axiosInstance(originalRequest);
         } catch (err) {
-          console.error('Failed to refresh token:', err);
+          console.log(err);
         }
       }
     }
