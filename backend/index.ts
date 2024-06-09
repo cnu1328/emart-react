@@ -17,8 +17,14 @@ config();
 const app = express();
 
 // Middlewares
-app.use(cors());
+const corsOptions = {
+  origin: 'https://rgukt-emart.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
 
+app.use(cors(corsOptions));
 
 app.use(cookieParser(process.env.COOKIE_SECRET,)) //It is used to send the cookies from backend to frontend
 app.use(express.json());
