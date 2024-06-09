@@ -3,11 +3,11 @@ import axios, { InternalAxiosRequestConfig } from "axios";
 import { url } from "../utils/baseUrl";
 
 const axiosInstance = axios.create({
-  baseURL: url,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true,
+  // baseURL: url,
+  // headers: {
+  //   'Content-Type': 'application/json',
+  // },
+  // withCredentials: true,
 });
 
 interface CustomAxiosConfig extends InternalAxiosRequestConfig<any> {
