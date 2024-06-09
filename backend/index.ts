@@ -19,7 +19,7 @@ const app = express();
 // Middlewares
 const corsOptions = {
   origin: 'https://rgukt-emart.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
