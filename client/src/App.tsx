@@ -17,6 +17,7 @@ import Header from './Components/Header/Header';
 export const DEFAULT_IMG =
   "https://firebasestorage.googleapis.com/v0/b/upload-pics-e599e.appspot.com/o/images%2F1_dmbNkD5D-u45r44go_cf0g.png?alt=media&token=3ef51503-f601-448b-a55b-0682607ddc8a";
 
+  
 
 type AppContextType = {
   hideNavbar(val: boolean): void;
@@ -53,6 +54,9 @@ function App() {
     hideNavbar,
     handleToast,
   };
+  navigator.geolocation.getCurrentPosition(()=>{
+
+  })
 
   return (
     

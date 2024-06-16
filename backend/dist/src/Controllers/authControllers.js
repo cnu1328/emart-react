@@ -65,6 +65,7 @@ function getUserFromCode(code) {
             redirect_uri: process.env.REDIRECT_URL,
             grant_type: "authorization_code",
         };
+        console.log('Request values:', values);
         try {
             const res = yield axios.post(url, qs.stringify(values), {
                 headers: {
@@ -74,7 +75,21 @@ function getUserFromCode(code) {
             return res.data;
         }
         catch (error) {
-            console.error("An Error Occured");
+            if (axios.isAxiosError(error)) {
+                // Axios specific error handling
+                console.error("Axios error:", error.message);
+                if (error.response) {
+                    console.error("Status:", error.response.status);
+                    console.error("Response data:", error.response.data);
+                }
+                else if (error.request) {
+                    console.error("Request data:", error.request);
+                }
+            }
+            else {
+                // Generic error handling
+                console.error("An unexpected error occurred:", error);
+            }
         }
     });
 }
