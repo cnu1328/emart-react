@@ -2,13 +2,7 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import { url } from "../utils/baseUrl";
 
-const axiosInstance = axios.create({
-  // baseURL: url,
-  // headers: {
-  //   'Content-Type': 'application/json',
-  // },
-  // withCredentials: true,
-});
+const axiosInstance = axios.create({});
 
 interface CustomAxiosConfig extends InternalAxiosRequestConfig<any> {
   headers: any;

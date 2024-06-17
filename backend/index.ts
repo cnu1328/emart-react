@@ -11,6 +11,7 @@ import { createServer } from "http";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import isAuthenticated from "./src/middleware/auth.js";
+// import adminRouter from "./src/routes/admin.js";
 
 config();
 
@@ -18,10 +19,10 @@ const app = express();
 
 // Middlewares
 const corsOptions = {
-  origin: 'https://rgukt-emart.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
+  // origin: 'https://rgukt-emart.vercel.app',
+  // methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  // allowedHeaders: ['Content-Type', 'Authorization'],
+  // credentials: true,
 };
 
 app.use(cors(corsOptions));
@@ -53,6 +54,7 @@ app.use("/oauth", authRouter);
 app.use("/user", userRouter);
 app.use("/sell", productRouter);
 app.use("/search", searchRouter);
+// app.use("/admin", adminRouter);
 
 
 

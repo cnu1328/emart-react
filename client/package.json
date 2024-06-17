@@ -21,6 +21,7 @@
     "@stripe/react-stripe-js": "^2.7.1",
     "@stripe/stripe-js": "^3.4.1",
     "@tanstack/react-query": "^5.32.0",
+    "antd": "^5.18.1",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "express-async-handler": "^1.2.0",
@@ -35,6 +36,7 @@
     "react-hot-toast": "^2.4.1",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.23.0",
+    "styled-components": "^6.1.11",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

@@ -14,13 +14,14 @@ import qs from "qs";
 import User from "../models/User.js";
 import Token from "../models/Token.js";
 import ServerError from "../utils/ServerError.js";
+import bcrypt from "bcryptjs";
 export const tokenRefresh = asyncHandler((req, res, next) => {
     // console.log("It is coming here");
     // console.log("Refresh token", process.env.JWT_REFRESH_SECRECT);
     const { token } = req.body;
     const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRECT);
     const access_token = jwt.sign({ _id: decoded._id }, process.env.JWT_SECRET, {
-        expiresIn: "30m",
+        expiresIn: "1h",
     });
     res.json({ access_token });
 });
@@ -31,6 +32,52 @@ export const logout = asyncHandler((req, res, next) => __awaiter(void 0, void 0,
     if (!loggedOut.deletedCount)
         throw new ServerError(400, "Something went wrong!");
     res.json({ message: "logged out succesfully" });
+}));
+export const emailSignup = asyncHandler((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username, password } = req.body;
+    console.log(username, password);
+    const user = yield User.findOne({ email: username });
+    if (user) {
+        throw new ServerError(400, "User already exist");
+    }
+    const hashedPassword = yield bcrypt.hash(password, 10);
+    const newUser = new User({
+        email: username,
+        password: hashedPassword,
+        name: "",
+        avatar: "https://firebasestorage.googleapis.com/v0/b/upload-pics-e599e.appspot.com/o/images%2F1_dmbNkD5D-u45r44go_cf0g.png?alt=media&token=3ef51503-f601-448b-a55b-0682607ddc8a",
+    });
+    yield newUser.save();
+    res.status(201).json({ status: 201, message: 'User created successfully' });
+}));
+export const emailLogIn = asyncHandler((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username, password } = req.body;
+    const user = yield User.findOne({ email: username });
+    if (!user) {
+        throw new ServerError(400, "User Not Exit, Please sign up first");
+    }
+    const isPasswordValid = yield bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+        throw new ServerError(400, "Please Check Credentials");
+    }
+    // Generate JWT tokens
+    const access_token_server = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "30m",
+    });
+    const refresh_token_server = jwt.sign({ _id: user._id }, process.env.JWT_REFRESH_SECRECT);
+    const refToken = new Token({
+        token: refresh_token_server,
+    });
+    yield refToken.save();
+    // console.log("It is coming here");
+    // res.redirect("/hello");
+    // console.log(process.env.CLIENT_URL);
+    res.status(200).json({
+        status: 200,
+        message: 'Login successful',
+        access_token_server,
+        refresh_token_server,
+    });
 }));
 export const googleAuth = asyncHandler((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
@@ -65,6 +112,7 @@ function getUserFromCode(code) {
             redirect_uri: process.env.REDIRECT_URL,
             grant_type: "authorization_code",
         };
+        console.log('Request values:', values);
         try {
             const res = yield axios.post(url, qs.stringify(values), {
                 headers: {
@@ -74,7 +122,21 @@ function getUserFromCode(code) {
             return res.data;
         }
         catch (error) {
-            console.error("An Error Occured");
+            if (axios.isAxiosError(error)) {
+                // Axios specific error handling
+                console.error("Axios error:", error.message);
+                if (error.response) {
+                    console.error("Status:", error.response.status);
+                    console.error("Response data:", error.response.data);
+                }
+                else if (error.request) {
+                    console.error("Request data:", error.request);
+                }
+            }
+            else {
+                // Generic error handling
+                console.error("An unexpected error occurred:", error);
+            }
         }
     });
 }

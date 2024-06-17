@@ -7,13 +7,17 @@ import searchRouter from "./src/routes/search.js";
 import cors from "cors";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+// import adminRouter from "./src/routes/admin.js";
 config();
 const app = express();
 // Middlewares
-app.use(cors({
-    origin: ["http://localhost:5173"],
-    methods: ["POST", "GET", "PATCH"]
-}));
+const corsOptions = {
+// origin: 'https://rgukt-emart.vercel.app',
+// methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+// allowedHeaders: ['Content-Type', 'Authorization'],
+// credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(cookieParser(process.env.COOKIE_SECRET)); //It is used to send the cookies from backend to frontend
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -27,6 +31,7 @@ app.use("/oauth", authRouter);
 app.use("/user", userRouter);
 app.use("/sell", productRouter);
 app.use("/search", searchRouter);
+// app.use("/admin", adminRouter);
 mongoose
     .connect(process.env.MONGO_URI)
     .then(() => app.listen(process.env.PORT))

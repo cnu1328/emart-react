@@ -43,7 +43,9 @@ export default function Home() {
         if (isSuccess) {
             console.log("Data is Fetched");
             console.log(data.data);
-            setProduct(data.data);
+            const availabeProducts = data.data?.filter((item: { product: { isAvailable: boolean; }; }) => item.product.isAvailable);
+            console.log("Available Products", availabeProducts);
+            setProduct(availabeProducts);
             
         }
     }, [isSuccess, data]);

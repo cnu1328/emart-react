@@ -8,10 +8,13 @@ import { useAuth } from "../../context/Auth";
 import useLocalStorage, { clearLocalStorage } from "../../hooks/useLocalStorage";
 
 export default function AuthRedirect() {
+    
+    console.log("It is coming here from Redirect");
+
     const [err, setErr] = useState<string | undefined>(undefined);
     const [query] = useSearchParams();
     const navigate = useNavigate();
-
+    
     const [, setRefreshToken] = useLocalStorage<string | undefined>(
         "refresh_token",
         undefined

@@ -129,6 +129,7 @@ export default function UserDetail() {
                     bio={data?.data.bio}
                     avatar={data?.data.avatar}
                     userId={data?.data._id}
+                    edit="edit"
                 />
 
             </Box>
@@ -163,13 +164,13 @@ export default function UserDetail() {
                     <Tab options={optionsTab} activeTab={tab ?? "wishlist"} />
                     
                     
-                    {tab == "wishlist" && <UserNavList productIds={products} />  }
+                    {tab === "wishlist" && <UserNavList tab={tab} productIds={data?.data.wishlist} />  }
 
-                    {tab == "cart" && <UserNavList productIds={products} />}
+                    {tab === "cart" && <UserNavList tab={tab}  productIds={data?.data.cart} />}
 
-                    {tab == "orders" && <UserNavList productIds={products} />}
+                    {tab === "orders" && <UserNavList tab={tab}  productIds={data?.data.buy} />}
 
-                    {tab == "product" && <UserNavList productIds={products} />}
+                    {tab === "products" && <UserNavList tab={tab}  productIds={data?.data.sell} />}
 
                     
 

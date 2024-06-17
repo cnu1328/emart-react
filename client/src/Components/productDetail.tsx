@@ -170,7 +170,7 @@ export default function ProductDetail() {
 
                     <p
                         style={{
-                            fontSize: "18px",
+                            fontSize: "16px",
                             lineHeight: 1.6,
                             textAlign: "justify",
                             color: "rgb(46, 43, 43)",

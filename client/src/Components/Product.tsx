@@ -18,6 +18,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useMutation } from '@tanstack/react-query';
 import { httpRequest } from '../Interceptor/axiosInterceptor';
+import { useAuth } from '../context/Auth';
 
 type ProductProps = {
   title: string;
@@ -51,6 +52,8 @@ export default function ProductCard({
   
   const navigate = useNavigate();
   // const queryClient = useQueryClient();
+
+  const { isAuthenticated } = useAuth();
 
   const images = image ? image.split(',') : [];
 
@@ -121,7 +124,9 @@ export default function ProductCard({
                 src={fullImageUrl}
                 alt="Product Image"
             />
-            <IconButton 
+
+            {isAuthenticated && 
+              <IconButton 
                 style={{ 
                     position: 'absolute', 
                     top: 0, 
@@ -129,12 +134,14 @@ export default function ProductCard({
                     padding: 2,
                     backgroundColor: "#ffff",
                     color: wishlisted ? 'red' : 'gray',
-                     
+                    
                 }} 
                 onClick={toggleWishlist}
             >
                 {wishlisted ? <FavoriteIcon /> : <FavoriteBorderIcon />}
             </IconButton>
+            }
+            
         </Box>
 
         <div className="info">

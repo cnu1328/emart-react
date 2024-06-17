@@ -18,6 +18,11 @@ import ContactUsForm from "../Components/Footer/ContactUsForm";
 import ContactUsSection from "../Components/Footer/ContactUsSection";
 import AboutSection from "../Components/Footer/AboutSection";
 import Developers from "../Components/Footer/Developers";
+import { AdminLogin } from "../Components/SiginIn/AdminLogin";
+import { AdminDashboard } from "./AdminDashboard";
+import { UsersDetail } from "./AdminDashboard/UserDetail";
+import { ProductsDetail } from "./AdminDashboard/ProductDetail";
+import ProductInfo from "./AdminDashboard/ProductInfo";
 
 export default class Main extends Component {
     render() {
@@ -29,6 +34,8 @@ export default class Main extends Component {
                         path="/home?"
                         element={<Home  />}
                     />
+
+                    
 
                     <Route
                         path="/product/:productId"
@@ -70,7 +77,6 @@ export default class Main extends Component {
                             <Authentication fallback={<Navigate to="/auth/signup" />}>
                                 <UserDetail />
                             </Authentication>
-                            
                         }
                     />
 
@@ -114,6 +120,35 @@ export default class Main extends Component {
                         path="oauth/redirect/"
                         element={<AuthRedirect />}
                     />
+
+                    <Route 
+                        path="/admin"
+                        element={<AdminLogin />}
+                    />
+
+                    <Route 
+                        path="/admin/dashboard"
+                        element={<AdminDashboard />}
+                    />
+
+                    <Route 
+                        path="/admin/dashboard/:userId"
+                        element={<UsersDetail />}
+                    />
+
+                    <Route 
+                        path="/admin/dashboard/product/:productId"
+                        element={<ProductInfo />}
+                    />
+
+
+
+
+                    <Route 
+                        path="/admin/dashboard/pro/:productId"
+                        element={<ProductsDetail />}
+                    />
+                    
                     <Route
                         path = "/contactus"
                         element = {<ContactUsSection />}

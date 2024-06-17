@@ -142,9 +142,10 @@ export default function View() {
                         fontSize: isBigScreen ? "30px" : isSmallScreen ? "20px" : "30px",
                         marginBottom: "-12px",
                         wordSpacing: "5px",
+                        textAlign: "left"
                     }}
                 >
-                    <span style={{ color: "#7f7f7f" }}>{"Your Products : "}</span>
+                    <span style={{ color: "#7f7f7f" }}>{"Your Products "}</span>
                     <span>
                         {product.length > 0 ? `You added ${product.length} products` : "No products added, start selling and earn more"}
 

@@ -6,10 +6,11 @@ type UserCardProps = {
     userId : string;
     bio: string;
     avatar: string;
+    edit?: string;
 }
 
 export default function UserCard({
-    email, username, userId, bio, avatar
+    email, username, userId, bio, avatar, edit
 
 }: UserCardProps) {
 
@@ -91,19 +92,23 @@ export default function UserCard({
             {bio}
             </p>
         )}
+
+        { edit && edit.length > 0 && (
+            <p
+                style={{
+                    color: "rgba(26, 137, 23, 1)",
+                    marginLeft: "8px",
+                    marginTop: "5px",
+                    fontSize: "13.4px",
+                    textAlign: "center",
+                    cursor: "pointer",
+                }}
+            >
+                Edit profile
+            </p>
+        )}
+       
         
-        <p
-            style={{
-                color: "rgba(26, 137, 23, 1)",
-                marginLeft: "8px",
-                marginTop: "5px",
-                fontSize: "13.4px",
-                textAlign: "center",
-                cursor: "pointer",
-            }}
-        >
-            Edit profile
-        </p>
         
     </div>
     );

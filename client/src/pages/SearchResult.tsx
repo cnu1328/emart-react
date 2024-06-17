@@ -30,7 +30,9 @@ export default function SearchResults() {
     useEffect(() => {
         if(data) setProducts(data?.data);
         if(isSuccess) {
-            setProducts(data.data);
+            console.log(data.data);
+            const availabeProducts = data.data.filter((item: { product: { isAvailable: boolean; }; }) => item.product.isAvailable);
+            setProducts(availabeProducts);
         }
     }, [isSuccess, data]);
 
@@ -51,39 +53,46 @@ export default function SearchResults() {
             >
                 <h1
                     style={{
-                        marginTop: "15px",
-                        marginLeft: "20px",
+                        marginTop: "30px",
+                        marginLeft: "100px",
                         fontSize: isBigScreen ? "30px" : isSmallScreen ? "20px" : "30px",
                         marginBottom: "-12px",
                         wordSpacing: "5px",
+                        textAlign: "left",
                     }}
                 >
                     <span style={{ color: "#7f7f7f" }}>{"Results for "}</span>
                     <span>{query}</span>
                 </h1>
-                <Box
-                    sx={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-                    }}
-                >
-                    {product.map((item) => {
-                        return (
-                            <ProductCard 
-                                title={item.product.name}
-                                image={item.product.images}
-                                description={item.product.description}
-                                price={item.product.price}
-                                productId={item.product._id}
-                                key={item.product._id}
-                            />
-                        );
-                    })}
-                    
+
+                {product.length > 0 ? (
+                    <Box
+                        sx={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+                        }}
+                    >
+                        {product.map((item: { product: { name: string; images: string; description: string; price: string; _id: string; }; }) => {
+                            return (
+                                <ProductCard 
+                                    title={item.product.name}
+                                    image={item.product.images}
+                                    description={item.product.description}
+                                    price={item.product.price}
+                                    productId={item.product._id}
+                                    key={item.product._id}
+                                />
+                            );
+                        })}
+                        
                 </Box>
 
-            </Box>
             
+                ) : (
+                    <p style={{ textAlign: "center", marginTop: "100px"}}>NO Products are availabe on your search!!!</p>
+                )}
+                
+            </Box>
             
             
            

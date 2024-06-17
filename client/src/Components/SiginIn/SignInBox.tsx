@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { emailIcon, googleIcon } from "../../assets/icons";
+import { useModalView } from "../../ui-library/modal/useModal";
+import { EmailSignIn, EmailSignUp } from "./EmailSignUP";
+import { useState } from "react";
+import { httpRequest } from "../../Interceptor/axiosInterceptor";
+import { url } from "../../utils/baseUrl";
 
 type SignInBoxType = {
   message?: string;
@@ -12,11 +17,13 @@ const SIGNIN_OPTIONS = [
     id: 1,
     title: "with Google",
     handler: "Google",
+    type: "signUp",
     image: googleIcon,
   },
   {
     id: 2,
     title: "with email",
+    type: "signUp",
     handler: "mail",
     image: emailIcon,
   },
@@ -25,6 +32,12 @@ const SIGNIN_OPTIONS = [
 function SignInBox({message, typeOfLogin}: SignInBoxType) {
     
     // Google Authentication
+
+    const location = useLocation();
+    
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     async function handleGoogleAuth() {
 
@@ -44,16 +57,71 @@ function SignInBox({message, typeOfLogin}: SignInBoxType) {
         window.location.assign(`${rootUrl}?${qs.toString()}`);
     }
 
-    /* 
-        http://localhost:5000/oauth?code=4%2F0AeaYSHBGiyqekvGwmC-
-        AQgX5ruFHyn18jHcVOsRyIFXfS8ydtipeFx3Oyutyf8YJh50x7w&
-        scope=email+profile+openid+https%3A%2F%2F
-        www.googleapis.com%2Fauth%2Fuserinfo.profile+
-        https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&
-        authuser=0&prompt=consent
-    */
+    
 
-    function handleEmailLogin() {}
+    const handleEmailSignUp = async () => {
+        console.log("Email Charged", username, password);
+        
+        try {
+            const response = await httpRequest.post(`${url}/oauth/register`, {
+                username, password
+            });
+
+            console.log('Success:', response.data);
+
+
+            if(response.data.status === 201) {
+                updateModalView(false);
+                updateModalViewSignIn(true);
+            }
+            
+        }
+
+        catch(e) {
+            
+            console.error('There was a problem with your fetch operation:', e);
+            setError("User already Exit");
+
+        }
+        
+
+    }
+
+    const handleEmailLogin = async () => {
+
+        console.log("Email Charged", username, password);
+        
+        try {
+            const response = await httpRequest.post(`${url}/oauth/login`, {
+                username, password
+            });
+
+            const { access_token_server, refresh_token_server } = response.data;
+
+            
+
+            if(response.data.status === 200) {
+            
+                updateModalViewSignIn(false);
+                localStorage.setItem('access_token', access_token_server);
+                localStorage.setItem('refresh_token', refresh_token_server);
+                window.location.href = '/';
+            }
+            
+        }
+
+        catch(e) {
+            
+            console.error('There was a problem with your fetch operation:', e);
+            setError("Please Check Credentials or Please signUp first");
+
+        }
+        
+
+    }
+
+    const [modal, updateModalView] = useModalView(<EmailSignUp setUsername={setUsername} setPassword={setPassword} error={error} setError={setError} />, handleEmailSignUp, 513, "Sign Up", "SinUp");
+    const [signInModal, updateModalViewSignIn] = useModalView(<EmailSignIn setUsername={setUsername} setPassword={setPassword} error={error} setError={setError} />, handleEmailLogin, 513, "Login", "LogIn");
     
     return(
         <div
@@ -78,7 +146,8 @@ function SignInBox({message, typeOfLogin}: SignInBoxType) {
                 {message}
             </p>
 
-            
+            {modal}
+            {signInModal}
 
             {SIGNIN_OPTIONS.map((item) => {
                 return (
@@ -86,7 +155,7 @@ function SignInBox({message, typeOfLogin}: SignInBoxType) {
                         image={item.image}
                         key={item.id}
                         onClick={
-                            item.handler === "Google" ? handleGoogleAuth : handleEmailLogin
+                            item.handler === "Google" ? handleGoogleAuth : (location.pathname !== '/auth/signin' ? (() => updateModalView(true)) : (() => updateModalViewSignIn(true)))
                         }
                         text={typeOfLogin + " " + item.title}
                     />

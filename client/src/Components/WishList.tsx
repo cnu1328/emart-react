@@ -8,6 +8,7 @@ import { url } from "../utils/baseUrl";
 type UserNavList = {
     productIds: Array<any>;
     userId?: string;
+    tab: string;
 }
 
 type Product = {
@@ -21,30 +22,25 @@ type Product = {
 };
 
 export default function UserNavList({
-    productIds, userId
+    productIds, userId, tab
 } : UserNavList) {
+ 
 
-    const [products, setProducts] = useState<Product[]>([]);    
-
-    const { data, isSuccess} = useQuery({
+    const { data } = useQuery({
         queryFn: () => httpRequest.post(`${url}/user/products`, { productIds, userId }),
         queryKey: ["user", "products", productIds, userId],
-        enabled: !!productIds.length, 
+        enabled: !!productIds?.length, 
     });
     
-    useEffect(() => {
-        if(isSuccess) {
-            setProducts(data?.data);
-        }
-    }, [isSuccess, data]);
+    console.log("data ", data?.data);
 
     return(
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
         
-            {products.length === 0 ? (
-                    <p>No products found in wishlist.</p>
+            {data?.data === undefined || data?.data.length === 0 ? (
+                    <p>No products found in {tab} list.</p>
                 ) : (
-                    products.map((product) => (
+                    data?.data.map((product : Product) => (
                         <UserProductCard
                             key={product._id}
                             name={product.name}

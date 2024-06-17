@@ -132,9 +132,10 @@ export default function CartList() {
                     wordSpacing: "5px",
                     marginTop: "20px",
                     marginLeft: "30px",
+                    textAlign: "left"
                     }}
                 >
-                    <span style={{ color: "#7f7f7f" }}>{"Your CartItems : "}</span>
+                    <span style={{ color: "#7f7f7f" }}>{"Your CartItems "}</span>
                     
                 </h1>
                 <Box

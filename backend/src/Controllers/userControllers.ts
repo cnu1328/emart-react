@@ -5,6 +5,7 @@ import Product from "../models/Product.js";
 import { NextFunction, Request, Response } from "express";
 import Stripe from "stripe";
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -289,4 +290,203 @@ export const getPaymentProcess = asyncHandler(async (req, res, next) => {
   });
 
   res.json({ id: session.id });
+});
+
+
+export const getAllUsers = asyncHandler(async (req, res, next) => {
+  const users = await User.find({});
+
+  if(users.length === 0) {
+    throw new ServerError(400, "NO users are there");
+  }
+
+  res.send(users);
+})
+
+
+export const getAdminProductDetails = asyncHandler(async (req, res, next) => {
+  const products = await Product.aggregate([
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'userId',
+        foreignField: '_id',
+        as: 'seller',
+      }, 
+    },
+
+    {
+      $unwind: '$seller',
+    },
+
+
+    {
+      $project: {
+        name: 1,
+        price: 1,
+        description: 1,
+        category: 1,
+        isAvailable: 1,
+        sellerName: '$seller.name',
+        sellerEmail: '$seller.email',
+      },
+    },
+
+    {
+      $lookup: {
+        from: 'users',
+        let: { productId: '$_id' },
+        pipeline: [
+          { $match: { $expr: { $in: ['$$productId', '$wishlist'] } } },
+          { $count: 'wishlistCount' },
+        ],
+        as: 'wishlistUsers',
+      },
+    },
+
+    {
+      $lookup: {
+        from: 'users',
+        let: { productId: '$_id' },
+        pipeline: [
+          { $match: { $expr: { $in: ['$$productId', '$cart'] } } },
+          { $count: 'cartCount' },
+        ],
+        as: 'cartUsers',
+      },
+    },
+
+    {
+      $lookup: {
+        from: 'users',
+        let: { productId: '$_id' },
+        pipeline: [
+          { $match: { $expr: { $in: ['$$productId', '$buy'] } } },
+          { $count: 'orderCount' },
+        ],
+        as: 'orderUsers',
+      },
+    },
+
+    {
+      $addFields: {
+        wishlistCount: { $arrayElemAt: ['$wishlistUsers.wishlistCount', 0] },
+        cartCount: { $arrayElemAt: ['$cartUsers.cartCount', 0] },
+        orderCount: { $arrayElemAt: ['$orderUsers.orderCount', 0] },
+        totalCount: {
+          $sum: [
+            { $ifNull: [{ $arrayElemAt: ['$wishlistUsers.wishlistCount', 0] }, 0] },
+            { $ifNull: [{ $arrayElemAt: ['$cartUsers.cartCount', 0] }, 0] },
+            { $ifNull: [{ $arrayElemAt: ['$orderUsers.orderCount', 0] }, 0] }
+          ]
+        }
+      },
+    },
+
+    {
+      $project: {
+        wishlistUsers: 0,
+        cartUsers: 0,
+        orderUsers: 0,
+      },
+    },
+
+    {
+      $sort: { totalCount: -1 }
+    }
+
+  ]);
+
+  res.status(200).send({ success: true, data: products });
+})
+
+
+export const getProductUserDetails = asyncHandler(async (req, res, next) => {
+  const { productId } = req.params;
+
+  // Convert productId to ObjectId
+  const productObjectId = new mongoose.Types.ObjectId(productId);
+
+  // Check if the product exists
+  const product = await Product.findOne({ _id: productObjectId });
+  if (!product) {
+    throw new ServerError(400, "No such Product exists");
+  }
+
+  // Aggregate query to get the product details along with user details
+  const productDetails = await Product.aggregate([
+    // Match the specific product by ID
+    {
+      $match: {
+        _id: productObjectId,
+      },
+    },
+    // Lookup for the seller (product owner)
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'userId',
+        foreignField: '_id',
+        as: 'seller',
+      },
+    },
+    {
+      $unwind: '$seller',
+    },
+    // Lookup for users who have added the product to their wishlist
+    {
+      $lookup: {
+        from: 'users',
+        let: { productId: '$_id' },
+        pipeline: [
+          { $match: { $expr: { $in: ['$$productId', '$wishlist'] } } },
+          { $project: { _id: 1, name: 1, email: 1, avatar: 1 } },
+        ],
+        as: 'wishlistUsers',
+      },
+    },
+    // Lookup for users who have added the product to their cart
+    {
+      $lookup: {
+        from: 'users',
+        let: { productId: '$_id' },
+        pipeline: [
+          { $match: { $expr: { $in: ['$$productId', '$cart'] } } },
+          { $project: { _id: 1, name: 1, email: 1, avatar: 1 } },
+        ],
+        as: 'cartUsers',
+      },
+    },
+    // Lookup for users who have ordered the product
+    {
+      $lookup: {
+        from: 'users',
+        let: { productId: '$_id' },
+        pipeline: [
+          { $match: { $expr: { $in: ['$$productId', '$buy'] } } },
+          { $project: { _id: 1, name: 1, email: 1, avatar: 1 } },
+        ],
+        as: 'orderUsers',
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        price: 1,
+        description: 1,
+        category: 1,
+        images: 1,
+        isAvailable: 1,
+        'seller._id': 1,
+        'seller.name': 1,
+        'seller.email': 1,
+        'seller.avatar': 1,
+        wishlistUsers: 1,
+        cartUsers: 1,
+        orderUsers: 1,
+      },
+    },
+  ]);
+
+  res.status(200).json({ success: true, data: productDetails });
 });
