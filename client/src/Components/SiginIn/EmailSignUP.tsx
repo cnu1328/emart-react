@@ -1,6 +1,6 @@
 import { Flex } from "../../ui-library/flex";
 import { InputField } from "../../ui-library/input";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 type EmailSignUPProps = {
     setUsername: Dispatch<SetStateAction<string>>;
@@ -27,7 +27,7 @@ export const EmailSignUp = ({setUsername, setPassword, error, setError} : EmailS
 }
 
 
-export const EmailSignIn = ({setUsername, setPassword, error, setError} : EmailSignUPProps) => {
+export const EmailSignIn = ({setUsername, setPassword, error} : EmailSignUPProps) => {
     return (
         <Flex gap="0.5rem" flexDirection="column" alignItemsCenter justifyContentCenter>
             <InputField label="Enter Email" placeholder="example@gmail.com" style={{ width: "400px" }} 

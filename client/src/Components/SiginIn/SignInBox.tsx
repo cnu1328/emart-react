@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, } from "react-router-dom";
 import { emailIcon, googleIcon } from "../../assets/icons";
 import { useModalView } from "../../ui-library/modal/useModal";
 import { EmailSignIn, EmailSignUp } from "./EmailSignUP";
