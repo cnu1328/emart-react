@@ -1,37 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { emailIcon, googleIcon } from "../../assets/icons";
-import { useModalView } from "../../ui-library/modal/useModal";
-import { EmailSignIn, EmailSignUp } from "./EmailSignUP";
 import { useEffect, useState } from "react";
-import { httpRequest } from "../../Interceptor/axiosInterceptor";
-import { url } from "../../utils/baseUrl";
 import { Flex } from "../../ui-library/flex";
 import { InputField } from "../../ui-library/input";
 import { useAppContext } from "../../App";
 import { Button } from "antd";
 
-type SignInBoxType = {
-  message?: string;
-  typeOfLogin?: string;
-};
 
-const SIGNIN_OPTIONS = [
-  {
-    id: 1,
-    title: "with Google",
-    handler: "Google",
-    type: "signUp",
-    image: googleIcon,
-  },
-  {
-    id: 2,
-    title: "with email",
-    type: "signUp",
-    handler: "mail",
-    image: emailIcon,
-  },
-];
+
 
 export const AdminLogin = () =>   {
     
@@ -46,7 +21,6 @@ export const AdminLogin = () =>   {
         };
     }, []);
 
-    const location = useLocation();
     
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
