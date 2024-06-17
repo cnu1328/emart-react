@@ -23,7 +23,7 @@ interface DeveloperProps {
 const Developer: React.FC<DeveloperProps> = ({ developer }) => {
   return (
     <div style={{backgroundColor : developer.background}} className="developer-card">
-      <img src={developer.photo} alt={`${developer.name}'s profile`} className="developer-photo" />
+      <img src={developer.photo} alt={`${developer.name}'s profile`} className="developer-photo" style={{ borderRadius: "150px"}} />
       <div className="developer-details">
         <h2>{developer.name}</h2>
         <p>{developer.email}</p>
