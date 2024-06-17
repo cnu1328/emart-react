@@ -40,13 +40,13 @@ export const updateProduct = asyncHandler((req, res, next) => __awaiter(void 0, 
 }));
 // Home page Products
 export const getHomeProducts = asyncHandler((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const products = yield getProductsWithUser(Product.find({}));
+    const products = yield getProductsWithUser(Product.find({ isAvailable: true }));
     console.log(products);
     res.send(products);
 }));
 export function getProductsWithUser(q) {
     return __awaiter(this, void 0, void 0, function* () {
-        const products = yield q.sort({ _id: -1 });
+        const products = yield q.sort({ name: -1 });
         return Promise.all(products.map((product) => __awaiter(this, void 0, void 0, function* () {
             const user = yield User.findOne({ _id: product.userId });
             return { product, user };

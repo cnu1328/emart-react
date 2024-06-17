@@ -71,7 +71,7 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
 export const getHomeProducts = asyncHandler(async (req, res, next) => {
 
     const products = await getProductsWithUser(
-        Product.find({}),
+        Product.find({ isAvailable: true }),
     );
 
     console.log(products);
@@ -80,7 +80,7 @@ export const getHomeProducts = asyncHandler(async (req, res, next) => {
 });
 
 export async function getProductsWithUser(q : any) {
-    const products = await q.sort({ _id : -1 });
+    const products = await q.sort({ name : -1 });
 
     return Promise.all(
         products.map(async (product: any) => {
