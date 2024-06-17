@@ -11,14 +11,14 @@ import { FlexContainer } from "./styles";
 import { useNavigate } from "react-router-dom";
 
 
-interface Record {
-    id: string;
-    name: string;
-    email: string;
-    carts: number;
-    wishlist: number;
-    orders: number;
-}
+// interface Record {
+//     id: string;
+//     name: string;
+//     email: string;
+//     carts: number;
+//     wishlist: number;
+//     orders: number;
+// }
 
 
 const columns = [

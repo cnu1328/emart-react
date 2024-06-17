@@ -52,9 +52,7 @@ export default function UserDetail() {
         typeof USER_PAGE_TAB_OPTIONS_AUTH
     >([]);
 
-    
-    const [products, setProducts] = useState<Array<any>>([]);
-    
+        
     
     console.log(userId);
     const { data, isSuccess : isGetUserData } = useQuery({
@@ -85,31 +83,6 @@ export default function UserDetail() {
     }, [data, isGetUserData, user, userId]);
 
 
-    useEffect(() => {
-
-        if(!data?.data || !tab) return;
-
-        if(tab === "wishlist") {
-            setProducts(data?.data.wishlist);
-        }
-
-        else if(tab === "cart") {
-            setProducts(data?.data.cart);
-        }
-
-        else if(tab === "orders") {
-            setProducts(data?.data.buy);
-        }
-
-        else if(tab === "products") {
-            setProducts(data?.data.sell);
-        }
-
-        return () => {
-            setProducts([]);
-        };
-
-    }, [data?.data, tab]);
 
     return (
         <Box sx={{ display: "flex", flexDirection: isSmallScreen ? "column" : "row", width: "95%", paddingBottom: "80px"}} >

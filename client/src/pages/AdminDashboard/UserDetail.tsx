@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppContext } from "../../App";
 import Header from "./Header";
-import { Flex } from "../../ui-library/flex";
 import UserCard from "../../Components/UserCard";
 import { useParams } from "react-router-dom";
 import { useMediaQuery, useTheme } from "@mui/material";
