@@ -31,12 +31,13 @@
 }
 
 .developer-photo {
-  width: 150px; /* Increase the width */
-  height: 200px; /* Increase the height */
+  width: 200px; /* Increase the width */
+  height: 150px; /* Increase the height */
   object-fit: contain; /* Ensures the image covers the entire container */
   margin-right: 20px;
   display: block; /* Ensures proper alignment */
   margin: 0 auto; /* Centers the image horizontally */
+  
 }
 
 .developer-details {
