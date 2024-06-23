@@ -80,6 +80,8 @@
   }
 
   .developer-photo {
+    width: 100%; /* Ensures image is responsive */
+    height: auto; /* Maintains aspect ratio */
     margin-right: 0;
     margin-bottom: 15px;
   }
@@ -87,5 +89,40 @@
   .developer-details {
     align-items: center;
     text-align: center;
+    margin-left: 0;
+  }
+
+  .developer-details h2 {
+    font-size: 1.2em; /* Adjust font size for smaller screens */
+  }
+
+  .developer-details p {
+    font-size: 0.9em; /* Adjust font size for smaller screens */
+  }
+
+  .social-icons {
+    justify-content: center; /* Centers icons */
+  }
+}
+
+@media (max-width: 480px) {
+  .developers-container h1 {
+    font-size: 1.5em; /* Adjust font size for smaller screens */
+  }
+
+  .developer-card {
+    padding: 10px; /* Further reduce padding for very small screens */
+  }
+
+  .developer-details h2 {
+    font-size: 1em; /* Further adjust font size */
+  }
+
+  .developer-details p {
+    font-size: 0.8em; /* Further adjust font size */
+  }
+
+  .social-icons a {
+    font-size: 1.2em; /* Adjust icon size for smaller screens */
   }
 }
